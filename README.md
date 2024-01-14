@@ -1,4 +1,4 @@
-# Laravel 9 + Stisla + Jetstream + Livewire
+# E Voting With Laravel Jetsream + Stisla
 
 we love Stisla Admin Template and Laravel 9 let's make them love each other.
 
@@ -12,6 +12,7 @@ we love Stisla Admin Template and Laravel 9 let's make them love each other.
 -   Laravel Jetstream ^2.6 - [jetstream.laravel.com](https://jetstream.laravel.com/)
 -   Livewire ^2.5 - [laravel-livewire.com](https://laravel-livewire.com)
 -   Stisla Admin Template ^2.3.0 - [getstisla.com](https://getstisla.com/)
+-   Laratrust
 
 Include simple Data Table with Livewire (CRUD).
 
