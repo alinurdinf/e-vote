@@ -36,15 +36,6 @@ configure `.env` file and do migration.
 $ php artisan migrate
 ```
 
-## How does it look?
-
-<p align="center">
-    <img src="https://telegra.ph/file/49c7571f06872948fb0bc.png" width="80%" height="auto" />
-    <img src="https://telegra.ph/file/613288c34841388c24f34.png" width="80%" height="auto" />
-    <img src="https://telegra.ph/file/7f893b085f7aaca5b91be.png" width="80%" height="auto" />
-    <img src="https://telegra.ph/file/8741e5fc455f02571b4c2.png" width="80%" height="auto" />
-</p>
-
 ## Thanks To
 - 
 - [Taylor Ottwell](https://github.com/taylorotwell) for Laravel.
