@@ -1,23 +1,39 @@
 @php
 $links = [
-    [
-        "href" => "dashboard",
-        "text" => "Dashboard",
-        "is_multi" => false,
-    ],
-    [
-        "href" => [
-            [
-                "section_text" => "User",
-                "section_list" => [
-                    ["href" => "user", "text" => "Data User"],
-                    ["href" => "user.new", "text" => "Buat User"]
-                ]
-            ]
-        ],
-        "text" => "User",
-        "is_multi" => true,
-    ],
+[
+"href" => "dashboard",
+"text" => "Dashboard",
+"is_multi" => false,
+],
+
+[
+"href" => [
+[
+"section_text" => "User",
+"section_list" => [
+["href" => "user", "text" => "Data User"],
+["href" => "user.new", "text" => "Buat User"]
+]
+]
+],
+"text" => "User",
+"is_multi" => true,
+],
+
+[
+"href" => [
+[
+"section_text" => "User",
+"section_list" => [
+["href" => "user", "text" => "Data User"],
+["href" => "user.new", "text" => "Buat User"]
+]
+]
+],
+"text" => "User",
+"is_multi" => true,
+],
+
 ];
 $navigation_links = array_to_object($links);
 @endphp
@@ -32,34 +48,34 @@ $navigation_links = array_to_object($links);
                 <img class="d-inline-block" width="32px" height="30.61px" src="" alt="">
             </a>
         </div>
-        @foreach ($navigation_links as $link)
         <ul class="sidebar-menu">
-            <li class="menu-header">{{ $link->text }}</li>
-            @if (!$link->is_multi)
-            <li class="{{ Request::routeIs($link->href) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route($link->href) }}"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+            <li class="menu-header">Dummy</li>
+            <li class="{{ Request::routeIs('dashboard') ? 'active' : '' }}">
+                <a class="nav-link" href="{{route('dashboard')}}"><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
-            @else
-                @foreach ($link->href as $section)
-                    @php
-                    $routes = collect($section->section_list)->map(function ($child) {
-                        return Request::routeIs($child->href);
-                    })->toArray();
-
-                    $is_active = in_array(true, $routes);
-                    @endphp
-
-                    <li class="dropdown {{ ($is_active) ? 'active' : '' }}">
-                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chart-bar"></i> <span>{{ $section->section_text }}</span></a>
-                        <ul class="dropdown-menu">
-                            @foreach ($section->section_list as $child)
-                                <li class="{{ Request::routeIs($child->href) ? 'active' : '' }}"><a class="nav-link" href="{{ route($child->href) }}">{{ $child->text }}</a></li>
-                            @endforeach
-                        </ul>
-                    </li>
-                @endforeach
-            @endif
         </ul>
-        @endforeach
+        <ul class="sidebar-menu">
+            @role('admin|sadmin')
+            <li class="menu-header">Menu</li>
+            <li class="dropdown {{ Request::routeIs('user') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chart-bar"></i> <span>Master Data</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::routeIs('user') ? 'active' : '' }}"><a class="nav-link" href="{{ route('user') }}">Data User</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::routeIs('voter') ? 'active' : '' }}"><a class="nav-link" href="{{ route('voter') }}">Voter</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::routeIs('candidate') ? 'active' : '' }}"><a class="nav-link" href="{{ route('candidate') }}">Candidate</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::routeIs('batch') ? 'active' : '' }}"><a class="nav-link" href="{{ route('batch') }}">Batch</a></li>
+                </ul>
+            </li>
+            @endrole
+            <li class="{{ Request::routeIs('voting') ? 'active' : '' }}">
+                <a class="nav-link" href="{{route('voting')}}"><i class="fas fa-fire"></i><span>E-Voting</span></a>
+            </li>
+        </ul>
     </aside>
 </div>

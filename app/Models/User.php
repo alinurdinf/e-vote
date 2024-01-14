@@ -9,9 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
+    use LaratrustUserTrait;
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
@@ -25,8 +27,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
+        'access_password',
     ];
 
     /**
@@ -65,7 +69,11 @@ class User extends Authenticatable
     public static function search($query)
     {
         return empty($query) ? static::query()
-            : static::where('name', 'like', '%'.$query.'%')
-                ->orWhere('email', 'like', '%'.$query.'%');
+            : static::where('name', 'like', '%' . $query . '%')
+            ->orWhere('email', 'like', '%' . $query . '%');
+    }
+    public function batches()
+    {
+        return $this->belongsToMany(Batch::class, 'batch_users', 'user_id', 'batch_id');
     }
 }
