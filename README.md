@@ -18,13 +18,6 @@ Include simple Data Table with Livewire (CRUD).
 
 ## How to use?
 
-Run the command below to start a new project
-```shell
-composer create-project afrizalmy/laravel9-stisla-livewire:dev-master <project_name>
-```
-Change *project_name* as desired.
-Next step is install all dependency required by laravel and laravel-mix.
-
 ```shell
 # project directory
 $ cd <project_name>
@@ -53,6 +46,7 @@ $ php artisan migrate
 </p>
 
 ## Thanks To
+- 
 - [Taylor Ottwell](https://github.com/taylorotwell) for Laravel.
 - [Stisla](https://getstisla.com/) for admin theme.
 - [nyancodeid](https://github.com/nyancodeid) for basecode from laravel 8.x.
