@@ -74,6 +74,14 @@
             background: #f1f7ff;
         }
 
+        .btn-danger,
+        .btn-danger.disabled {
+            box-shadow: 0 2px 6px #fd9b96;
+            background-color: #fc544b;
+            background-color: #fc544b !important;
+            color: #fff;
+        }
+
     </style>
     <livewire:styles />
 
@@ -133,6 +141,7 @@
     <script>
         $(document).ready(function() {
             var successMessage = "{{ session('success') }}";
+            var errorMessage = "{{ session('error') }}";
 
             if (successMessage) {
                 Swal.fire({
@@ -140,7 +149,17 @@
                     , title: 'Success!'
                     , text: successMessage
                     , showConfirmButton: false
-                    , timer: 2000 // Adjust the timer as needed
+                    , timer: 2000
+                });
+            }
+
+            if (errorMessage) {
+                Swal.fire({
+                    icon: 'error'
+                    , title: 'Oops...'
+                    , text: errorMessage
+                    , showConfirmButton: false
+                    , timer: 2000
                 });
             }
         });

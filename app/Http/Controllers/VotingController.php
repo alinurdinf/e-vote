@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\BatchUser;
 use App\Models\Candidate;
+use App\Models\MongoVoting;
+use App\Models\Voting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VotingController extends Controller
 {
@@ -16,9 +19,14 @@ class VotingController extends Controller
     public function index()
     {
         $data = Candidate::orderby('id', 'asc')->get();
+
         $userData = BatchUser::with('user', 'batch')->where('user_id', auth()->user()->id)->first();
         $message = 'Sila pilih calon yang kamu inginkan';
         $status  = 'valid';
+        if (Voting::where('user_id', auth()->user()->id)->first()) {
+            $message = 'Kamu sudah melakukan voting';
+            $status  = 'invalid';
+        }
         if ($userData->batch->start > date('Y-m-d H:i:s') || $userData->batch->finish < date('Y-m-d H:i:s')) {
             $message = 'Kamu tidak bisa melakukan voting karena waktu voting kamu belum dimulai atau sudah selesai';
             $status  = 'invalid';
@@ -32,69 +40,40 @@ class VotingController extends Controller
         $data = Candidate::with('misi')->where('id', $id)->first();
         return response()->json($data);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function vote($id)
     {
-        //
-    }
+        $id = decrypt($id);
+        if (Voting::where('user_id', auth()->user()->id)->first()) {
+            return redirect()->back()->with('error', 'Kamu sudah melakukan voting');
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $userData = BatchUser::with('user', 'batch')->where('user_id', auth()->user()->id)->first();
+        if ($userData->batch->start > date('Y-m-d H:i:s') || $userData->batch->finish < date('Y-m-d H:i:s')) {
+            return redirect()->back()->with('error', 'Kamu tidak bisa melakukan voting karena waktu voting kamu belum dimulai atau sudah selesai');
+        }
+        try {
+            DB::beginTransaction();
+            Voting::create([
+                'batch_id' => $userData->batch_id,
+                'candidate_id' => $id,
+                'user_id' => auth()->user()->id,
+                'voted_at' => date('Y-m-d H:i:s'),
+                'ip_address' => request()->ip()
+            ]);
+            MongoVoting::create([
+                'batch_id' => $userData->batch_id,
+                'candidate_id' => $id,
+                'user_id' => auth()->user()->id,
+                'voted_at' => date('Y-m-d H:i:s'),
+                'ip_address' => request()->ip()
+            ]);
+            DB::commit();
+            return redirect()->route('voting')->with('success', 'Berhasil melakukan voting');
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

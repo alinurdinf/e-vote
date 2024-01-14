@@ -16,7 +16,7 @@ class VoterController extends Controller
         if (request()->ajax()) {
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    return '<a href="#" class="btn btn-outline-primary "> Edit</a><a href="#" class="btn btn-outline-primary "> Edit</a>';
+                    return '<div class="text-center"><a  href="' . route('voter.show', base64_encode($item->id)) . '" class="btn btn-primary">Edit</a></div>';
                 })
                 ->addColumn('name', function ($item) {
                     return $item->user->name;
@@ -65,5 +65,22 @@ class VoterController extends Controller
     public function export()
     {
         return Excel::download(new \App\Imports\VoterExport, 'voter.xlsx');
+    }
+
+    public function show($id)
+    {
+        $id = base64_decode($id);
+        $data = BatchUser::with('user', 'batch')->findOrFail($id);
+        return view('pages.voter.show', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $id = base64_decode($id);
+        $data = BatchUser::findOrFail($id);
+        $data->update([
+            'batch_id' => $request->batch
+        ]);
+        return redirect()->route('voter')->with('success', 'Voter updated successfully');
     }
 }

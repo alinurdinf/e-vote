@@ -72,6 +72,16 @@ $navigation_links = array_to_object($links);
                     <li class="{{ Request::routeIs('batch') ? 'active' : '' }}"><a class="nav-link" href="{{ route('batch') }}">Batch</a></li>
                 </ul>
             </li>
+            <li class="dropdown {{ Request::routeIs('user') ? 'active' : '' }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chart-bar"></i> <span>App Setting</span></a>
+                <ul class="dropdown-menu">
+                    <li class=""><a class="nav-link" href="{{ route('laratrust.roles.index') }}">Role Management</a></li>
+                </ul>
+                <ul class="dropdown-menu">
+                    <li class=""><a class="nav-link" href="{{ route('logs') }}">App Logs</a></li>
+                </ul>
+            </li>
+
             @endrole
             <li class="{{ Request::routeIs('voting') ? 'active' : '' }}">
                 <a class="nav-link" href="{{route('voting')}}"><i class="fas fa-fire"></i><span>E-Voting</span></a>

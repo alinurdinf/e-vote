@@ -218,7 +218,7 @@
                     </div>
                     <div class="btn">
                         @if($status == 'valid')
-                        <a href="#"><i class="fa fa-clipboard" aria-hidden="true"></i>Vote</a>
+                        <a href="{{route('voting.vote',encrypt($item->id))}}"><i class="fa fa-clipboard" aria-hidden="true"></i>Vote</a>
                         <a href="#" class="detail-link" data-toggle="modal" data-target="#detailModal" data-index="{{$item->id}}">
                             <i class="fa fa-eye" aria-hidden="true"></i>Detail
                         </a>

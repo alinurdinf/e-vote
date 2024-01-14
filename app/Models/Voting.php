@@ -12,7 +12,22 @@ class Voting extends Model
         'batch_id',
         'candidate_id',
         'user_id',
-        'vote_at',
+        'voted_at',
         'ip_address'
     ];
+
+    public function batch()
+    {
+        return $this->belongsTo(Batch::class);
+    }
+
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

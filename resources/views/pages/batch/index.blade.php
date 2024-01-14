@@ -3,18 +3,15 @@
 
     @endpush
     <x-slot name="header_content">
-        <h1>Candidate</h1>
+        <h1>Batch</h1>
         <div class="section-header-breadcrumb">
-            <div class="breadcrumb-item active"><a href="#">Candidate</a></div>
+            <div class="breadcrumb-item active"><a href="#">Batch</a></div>
         </div>
     </x-slot>
 
     <div class="card card-primary">
-        <h2 class="section-title">Master Data Candidate</h2>
+        <h2 class="section-title">Master Data Batch</h2>
         <div class="col-md-2 mt-3">
-            <a href="#" class="btn btn-primary ">
-                + Add New Candidate
-            </a>
         </div>
 
         <div class="shadow overflow-hidden sm:rounded-md">
@@ -79,5 +76,6 @@
         , });
 
     </script>
+
     @endpush
 </x-app-layout>

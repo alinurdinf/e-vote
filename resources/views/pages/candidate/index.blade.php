@@ -184,12 +184,6 @@
 
     <div class="card card-primary">
         <h2 class="section-title">Master Data Candidate</h2>
-        <div class="col-md-2 mt-3">
-            <a href="#" class="btn btn-primary ">
-                + Add New Candidate
-            </a>
-        </div>
-
         <div class="shadow overflow-hidden sm:rounded-md">
             <div class="px-4 py-5 bg-white sm:p-6">
                 <div class="overflow-x-auto">
