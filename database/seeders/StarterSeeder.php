@@ -38,16 +38,16 @@ class StarterSeeder extends Seeder
             'name' => 'venny',
             'email' => null,
             'username' => 'venny',
-            'password' => bcrypt('only4NOW'),
-            'access_password' => 'only4NOW',
+            'password' => bcrypt('only4Venny'),
+            'access_password' => 'only4Venny',
         ]);
 
         $sadmin = User::create([
             'name' => 'sadmin',
             'email' => null,
             'username' => 'sadmin',
-            'password' => bcrypt('S3m4ng4t'),
-            'access_password' => 'S3m4ng4t',
+            'password' => bcrypt('just4Sadmin'),
+            'access_password' => 'just4Sadmin',
         ]);
 
         $sadmin->attachRole($sadminRole);
