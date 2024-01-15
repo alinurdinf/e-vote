@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BatchUser;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -38,18 +39,27 @@ class StarterSeeder extends Seeder
             'name' => 'venny',
             'email' => null,
             'username' => 'venny',
-            'password' => bcrypt('only4Venny'),
-            'access_password' => 'only4Venny',
+            'password' => bcrypt('just4FOSKOMI'),
+            'access_password' => 'just4FOSKOMI',
         ]);
 
         $sadmin = User::create([
             'name' => 'sadmin',
             'email' => null,
             'username' => 'sadmin',
-            'password' => bcrypt('just4Sadmin'),
-            'access_password' => 'just4Sadmin',
+            'password' => bcrypt('S3m4ng4t'),
+            'access_password' => 'S3m4ng4t',
         ]);
 
+        BatchUser::create([
+            'batch_id' => 7,
+            'user_id' => $admin->id,
+        ]);
+
+        BatchUser::create([
+            'batch_id' => 8,
+            'user_id' => $sadmin->id,
+        ]);
         $sadmin->attachRole($sadminRole);
         $admin->attachRole($adminRole);
     }

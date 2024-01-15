@@ -31,7 +31,7 @@ class DashboardController extends Controller
             ->leftJoin('votings', 'votings.candidate_id', '=', 'candidates.id')
             ->select('candidates.id as candidate_id', 'candidates.name as candidate_name')
             ->selectRaw('COUNT(votings.id) as total_votes')
-            ->selectRaw('ROUND((COUNT(votings.id) * 100.0 / SUM(COUNT(votings.id)) OVER ()), 2) as vote_percentage')
+            ->selectRaw('CASE WHEN COUNT(votings.id) > 0 THEN ROUND((COUNT(votings.id) * 100.0 / SUM(COUNT(votings.id)) OVER ()), 2) ELSE 0 END as vote_percentage')
             ->groupBy('candidates.id', 'candidates.name')
             ->orderBy('candidates.id', 'asc')
             ->get();
@@ -44,6 +44,7 @@ class DashboardController extends Controller
                 'z' => $result->vote_percentage,
             ];
         }
+
 
         $data = [
             'voter' => $voter,
