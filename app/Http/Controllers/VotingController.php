@@ -61,13 +61,13 @@ class VotingController extends Controller
                 'voted_at' => date('Y-m-d H:i:s'),
                 'ip_address' => request()->ip()
             ]);
-            MongoVoting::create([
-                'batch_id' => $userData->batch_id,
-                'candidate_id' => $id,
-                'user_id' => auth()->user()->id,
-                'voted_at' => date('Y-m-d H:i:s'),
-                'ip_address' => request()->ip()
-            ]);
+            // MongoVoting::create([
+            //     'batch_id' => $userData->batch_id,
+            //     'candidate_id' => $id,
+            //     'user_id' => auth()->user()->id,
+            //     'voted_at' => date('Y-m-d H:i:s'),
+            //     'ip_address' => request()->ip()
+            // ]);
             DB::commit();
             return redirect()->route('voting')->with('success', 'Berhasil melakukan voting');
         } catch (\Exception $e) {
