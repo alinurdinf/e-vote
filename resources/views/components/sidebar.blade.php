@@ -45,7 +45,7 @@ $navigation_links = array_to_object($links);
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('dashboard') }}">
-                <img class="d-inline-block" width="32px" height="30.61px" src="" alt="">
+                <img src="{{asset('image/logo-himabo.png')}}" class="d-inline-block" width="32px" height="30.61px" src="" alt="">
             </a>
         </div>
         <ul class="sidebar-menu">
@@ -58,7 +58,7 @@ $navigation_links = array_to_object($links);
             @role('admin|sadmin')
             <li class="menu-header">Menu</li>
             <li class="dropdown {{ Request::routeIs('user') ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chart-bar"></i> <span>Master Data</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-database"></i> <span>Master Data</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{ Request::routeIs('user') ? 'active' : '' }}"><a class="nav-link" href="{{ route('user') }}">Data User</a></li>
                 </ul>
@@ -73,7 +73,7 @@ $navigation_links = array_to_object($links);
                 </ul>
             </li>
             <li class="dropdown {{ Request::routeIs('user') ? 'active' : '' }}">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-chart-bar"></i> <span>App Setting</span></a>
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-cog"></i> <span>App Setting</span></a>
                 <ul class="dropdown-menu">
                     <li class=""><a class="nav-link" href="{{ route('laratrust.roles.index') }}">Role Management</a></li>
                 </ul>
