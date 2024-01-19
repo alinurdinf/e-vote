@@ -32,6 +32,7 @@ Route::group(["middleware" => ['auth:sanctum', config('jetstream.auth_session'),
 
     Route::get('/voting', [VotingController::class, 'index'])->name('voting');
     Route::get('/voting/vote/{id}', [VotingController::class, 'vote'])->name('voting.vote');
+    Route::get('/voting/result', [VotingController::class, 'current_voting_index'])->name('voting.result');
 
     Route::get('/candidate/get/{id}', [VotingController::class, 'getCandidate'])->name('candidate.get');
 
